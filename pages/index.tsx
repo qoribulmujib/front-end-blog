@@ -1,21 +1,55 @@
+import { Layouts } from '@/components/layout'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { SlClose } from 'react-icons/sl'
 
 export default function Home() {
   const [openBurger, setOpenBurger] = useState(false);
+  const token = true;
+
+  const RenderHeader = () => {
+    const handleDrawer = () => {
+      setOpenBurger(!openBurger)
+    }
+
+    return (
+      <div
+        className={`w-full flex md:hidden duration-500 ease-in-out ${openBurger ? `translate-x-0` : `-translate-x-full`
+          } bg-white flex-col absolute inset-0 md:py-0 z-[1000] h-screen`}
+      >
+        <div
+          className={`flex ${token ? "justify-between" : "justify-end"
+            } w-full p-4`}
+        >
+          <div
+            onClick={() => handleDrawer()}
+            className="text-sm self-center text-[#6b7280] cursor-pointer"
+          >
+            Tutup
+          </div>
+        </div>
+      </div>
+    );
+
+  }
 
   return (
     <div>
       {/* footer */}
+      <RenderHeader />
       {/* mobile view */}
-      <div className='flex flex-row justify-between px-4 mt-3 md:hidden'>
+      <div className={`${openBurger ? 'hidden' : 'flex'} flex-row justify-between px-4 mt-3 md:hidden duration-500 ease-in-out`}>
         <div>
           <h1>Image PadiUMKM</h1>
         </div>
-        <div>
+        <div className='cursor-pointer'>
           <button onClick={() => setOpenBurger(true)}>
-            Icon Burger
+            <GiHamburgerMenu
+              size={28}
+              color="#444B55"
+              className="cursor-pointer" />
           </button>
         </div>
       </div>
@@ -37,6 +71,8 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Sidebar */}
+      {/* <Layouts /> */}
 
       {/* body */}
       <div className='md:flex h-screen w-full'>
@@ -65,7 +101,7 @@ export default function Home() {
 
 
       {/* footer */}
-      <footer className='flex sticky top-[100vh] justify-center align-middle'>
+      <footer className={`${openBurger ? 'hidden' : 'flex'} sticky top-[100vh] justify-center align-middle`}>
         <ul>
           <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, esse.</li>
           <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, esse.</li>
