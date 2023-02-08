@@ -2,24 +2,24 @@
 import ButtonMain from "@/components/atomics/button-main"
 import CardPosts from "@/components/organisms/card-posts"
 import CollectionPosts from "@/components/template/collection-posts"
+import { BiSearchAlt } from 'react-icons/bi'
 
 
 export default function Home() {
   return (
-    <div className="w-full max-h-full bg-primary py-10">
-      <div className="bg-gray-800 h-28 md:w-10/12 w-full ">
-        <p className="text-secondary p-2 text-sm md:text-lg">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio corporis numquam quis quia expedita iste voluptas, dicta ut, nostrum voluptatem tempora non quae aperiam animi perferendis, eligendi praesentium necessitatibus? Eveniet?
-        </p>
-      </div>
-      <div className="md:w-10/12 mx-auto">
-
-        <div>
-          <div className="mt-20 md:mt-60 px-4">
-            <p className="text-white text-lg mb-5">Bersama <span className="text-secondary text-3xl">blogMAN,</span> mari tingkatkan pertumbuhan minat membaca untuk Indonesia lebih baik.</p>
-            <ButtonMain type={'selengkapnya'} title={'Gabung Sekarang..!'} />
+    <div className="w-full max-h-full bg-primary">
+      <div className="md:w-10/12 mx-auto pt-64">
+        <div className="flex flex-row justify-center items-center align-middle self-center">
+          <div>
+            <p className="text-white font-semibold text-base text-center mb-12">Our blog.</p>
+            <p className="text-gray-900 font-semibold text-5xl text-center">Resources and insights</p>
+            <p className="text-center text-gray-900 font-normal text-xl my-24">The latest industry news, interviews, technologies, and resources.</p>
+            <div className="flex justify-center items-center align-middle relative">
+              <input type="text" placeholder="Search" className="h-10 w-80 text-gray-900 rounded-lg px-14 flex justify-center items-center" >
+              </input>
+              <BiSearchAlt className="absolute top-2 md:left-36 left-24 w-6 h-6" />
+            </div>
           </div>
-          <div className="hidden md:inline"></div>
         </div>
 
         <div className="mt-8 md:mt-60">
