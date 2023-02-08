@@ -12,7 +12,7 @@ interface data {
 
 const CardPosts = ({ title, author, description, date, image }: data) => {
     return (
-        <div className="border border-y-4">
+        <div className="">
             <Image
                 src={'https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'}
                 width="0"
