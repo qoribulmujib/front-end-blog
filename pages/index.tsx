@@ -1,15 +1,38 @@
 
-import ButtonMain from "@/components/atomics/button-main"
-import CardPosts from "@/components/organisms/card-posts"
-import CollectionPosts from "@/components/template/collection-posts"
+import { useState } from 'react'
+import TabView from "@/components/organisms/tab-view"
 import { BiSearchAlt } from 'react-icons/bi'
+import CustomerService from "./categories/customer-service"
+import Design from "./categories/design"
+import Product from "./categories/product"
+import SoftwareEngineering from "./categories/software-engineering"
+import ViewAll from "./categories/view-all"
 
 
 export default function Home() {
+  const routes = [
+    { key: 1, title: 'View all' },
+    { key: 2, title: 'Design' },
+    { key: 3, title: 'Product' },
+    { key: 4, title: 'Software Engineering' },
+    { key: 5, title: 'Customer Success' }
+  ];
+
+  const [activeRoute, setActiveRoute] = useState<any>({
+    key: 1,
+    title: 'View all'
+  })
+
+  const handleChangeTab = (route: string) => {
+    setActiveRoute(route)
+
+  }
+
+
   return (
-    <div className="w-full max-h-full bg-primary">
+    <div className="w-full px-2 max-h-full bg-primary">
       <div className="md:w-10/12 mx-auto pt-64">
-        <div className="flex flex-row justify-center items-center align-middle self-center">
+        <div className="flex flex-row justify-center items-center align-middle self-center pb-60">
           <div>
             <p className="text-white font-semibold text-base text-center mb-12">Our blog.</p>
             <p className="text-gray-900 font-semibold text-5xl text-center">Resources and insights</p>
@@ -22,10 +45,18 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-8 md:mt-60">
-          <CollectionPosts title={'Postingan Terbaik Desember!'} />
-
-        </div>
+        < TabView
+          activeRoute={activeRoute}
+          routes={routes}
+          render={{
+            1: <ViewAll />,
+            2: <Design />,
+            3: <Product />,
+            4: <SoftwareEngineering />,
+            5: <CustomerService />,
+          }}
+          onChangeTab={(route: string) => handleChangeTab(route)}
+        />
       </div>
     </div >
   )
