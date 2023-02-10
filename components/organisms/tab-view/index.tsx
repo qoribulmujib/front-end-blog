@@ -35,7 +35,7 @@ const TabView = ({
                 <div className='md:w-9/12 border-b'>
                     <ul className="flex flex-nowrap -mb-px overflow-x-auto no-scrollbar">
                         {_.map(routes, (val: any, key: number) => (
-                            <li className="mr-2">
+                            <li className="mr-2" key={val?.key}>
                                 <div
                                     className={`pb-2 px-4 text-sm text-center cursor-pointer whitespace-nowrap ${activeRoute?.key === val?.key
                                         ? "text-secondary-70 rounded-t-lg border-b-2 border-gray-900 active font-bold"
