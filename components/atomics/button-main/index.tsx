@@ -18,7 +18,7 @@ const ButtonMain = ({ type, title, onClick }: any) => {
             )
         } else if (type === 'login') {
             return (
-                <button className='text-white bg-gray-900 hover:bg-gray-300 hover:text-gray-900 max-w-max px-5 py-2 rounded-sm cursor-pointer text-center flex justify-center items-center uppercase font-bold'>
+                <button className='text-white bg-gray-900 hover:bg-gray-300 hover:text-gray-900 max-w-max px-5 py-2 rounded-sm cursor-pointer text-center flex justify-center items-center uppercase font-bold' onClick={onClick}>
                     {title}
                 </button>
             )
