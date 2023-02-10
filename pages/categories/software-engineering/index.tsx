@@ -3,8 +3,9 @@ import React from 'react'
 
 const SoftwareEngineering = () => {
     return (
-        <div className='md:grid grid-cols-4 gap-5'>
+        <div className='md:grid grid-cols-4 gap-5 pb-20'>
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
@@ -12,6 +13,7 @@ const SoftwareEngineering = () => {
                 title="Lahir dari Kecintaan pada Wastra Nusantara"
             />
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
@@ -19,6 +21,7 @@ const SoftwareEngineering = () => {
                 title="Lahir dari Kecintaan pada Wastra Nusantara"
             />
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
@@ -26,6 +29,7 @@ const SoftwareEngineering = () => {
                 title="Lahir dari Kecintaan pada Wastra Nusantara"
             />
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
@@ -33,6 +37,7 @@ const SoftwareEngineering = () => {
                 title="Lahir dari Kecintaan pada Wastra Nusantara"
             />
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
@@ -40,6 +45,7 @@ const SoftwareEngineering = () => {
                 title="Lahir dari Kecintaan pada Wastra Nusantara"
             />
             <CardPosts
+                categories='Software Engineering'
                 author="Mujib"
                 date="28 September 2021"
                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, ad ut. Magni vel quibusdam eum."
