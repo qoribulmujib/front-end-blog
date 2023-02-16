@@ -32,8 +32,7 @@ const ModalMain = (props: any) => {
                         }}
                     >
                         <div
-                            className={`relative w-auto my-6 mx-4 md:mx-auto  md:${customWidthContent ?? "max-w-3xl"
-                                }`}
+                            className={`relative w-full my-6 mx-4 md:mx-auto md:w-1/3`}
                         >
                             {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
