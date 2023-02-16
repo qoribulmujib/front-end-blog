@@ -26,7 +26,6 @@ export default function Home() {
 
   const handleChangeTab = (route: string) => {
     setActiveRoute(route)
-
   }
 
 
@@ -48,6 +47,7 @@ export default function Home() {
         </div>
 
         < TabView
+          type="product"
           activeRoute={activeRoute}
           routes={routes}
           render={{
