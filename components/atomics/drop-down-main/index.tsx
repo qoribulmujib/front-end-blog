@@ -1,6 +1,7 @@
 import _ from "lodash";
 import ReactSelect, { components } from "react-select";
 import CreatableSelect from "react-select/creatable";
+import { useId } from 'react';
 
 type Props = {
     placeholder?: string;
@@ -51,6 +52,7 @@ const DropDownMain = ({
                 placeholder={placeholder}
                 isClearable={isClearable}
                 value={value}
+                instanceId={useId()}
                 options={options}
                 onChange={onChange}
                 isDisabled={disabled}
