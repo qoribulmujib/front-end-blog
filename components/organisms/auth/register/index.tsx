@@ -13,7 +13,7 @@ interface FormInputs {
     name: string;
     confirPassword: string;
 }
-const Register = ({ onPressClose }: any) => {
+const Register = ({ onPressClose, onChangeTab }: any) => {
 
     const [isShow, setIsShow] = useState(false);
     const [isShowConfirm, setIsShowConfirm] = useState(false);
@@ -22,6 +22,7 @@ const Register = ({ onPressClose }: any) => {
         register,
         handleSubmit,
         formState: { errors, isSubmitting, isSubmitSuccessful },
+        watch
     } = useForm<FormInputs>({
         mode: "onChange",
         defaultValues: {
@@ -31,6 +32,7 @@ const Register = ({ onPressClose }: any) => {
             confirPassword: "",
         },
     });
+    const password = watch("password");
 
     const formSubmitHandler = async (data: FormInputs) => {
         const { email, password, name, confirPassword } = data
@@ -43,7 +45,7 @@ const Register = ({ onPressClose }: any) => {
                         'content-type': 'application/json'
                     }
                 })
-            console.log(res);
+            onChangeTab?.({ key: 2, title: "Login" })
 
         } catch (error) {
             console.error(error);
@@ -173,10 +175,7 @@ const Register = ({ onPressClose }: any) => {
                             id="confirPassword"
                             {...register("confirPassword", {
                                 required: "Konfirmasi Password wajib diisi.",
-                                minLength: {
-                                    message: "Password minimal 8 karakter.",
-                                    value: 8,
-                                },
+                                validate: (value) => value === password || "Password tidak sama",
                             })}
                             placeholder="Masukan konfirmasi password"
                             className={`block w-full px-5 py-3 text-base placeholder-gray-300 transition duration-500 ease-in-out transform border ${errors?.password
@@ -199,7 +198,7 @@ const Register = ({ onPressClose }: any) => {
                         </div>
                     </div>
 
-                    {errors?.password && (
+                    {errors?.confirPassword && (
                         <motion.span
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -207,12 +206,12 @@ const Register = ({ onPressClose }: any) => {
                             layoutId="password-error"
                             className="text-xs text-red-500"
                         >
-                            {errors.password.message}
+                            {errors.confirPassword.message}
                         </motion.span>
                     )}
                 </div>
                 <div className='py-4'>
-                    <ButtonLoginRegister onPressClose={onPressClose} />
+                    <ButtonLoginRegister onPressClose={onPressClose} isSubmitting={isSubmitting} isSubmitSuccessful={isSubmitSuccessful} />
                 </div>
             </form>
         </div>

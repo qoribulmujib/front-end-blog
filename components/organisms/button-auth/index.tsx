@@ -17,6 +17,7 @@ const ButtonAuth = () => {
     })
 
     const handleChangeTab = (route: string) => {
+
         setActiveRoute(route)
     }
     const handlePressClose = (item: string) => {
@@ -40,7 +41,7 @@ const ButtonAuth = () => {
                         activeRoute={activeRoute}
                         routes={routes}
                         render={{
-                            1: <Register onPressClose={handlePressClose} />,
+                            1: <Register onPressClose={handlePressClose} onChangeTab={(route: string) => handleChangeTab(route)} />,
                             2: <Login onPressClose={handlePressClose} />,
                         }}
                         onChangeTab={(route: string) => handleChangeTab(route)}
