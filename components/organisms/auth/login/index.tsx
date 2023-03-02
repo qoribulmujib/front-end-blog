@@ -3,16 +3,26 @@ import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion"
 import { FiEyeOff, FiEye } from 'react-icons/fi'
 import ButtonLoginRegister from '@/components/atomics/button-login-register';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import nookies from 'nookies';
+import { decode } from "jsonwebtoken";
+import { signIn } from 'next-auth/react';
 
 interface FormInputs {
     email: string;
     password: string;
-    name: string;
-    confirmPassword: string;
 }
 
 const Login = ({ onPressClose }: any) => {
     const [isShow, setIsShow] = useState(false);
+    const [isShowConfirm, setIsShowConfirm] = useState(false);
+    const [successLogin, setSuccessLogin] = useState(false);
+    const [isError, setIsError] = useState({
+        errorStatus: false,
+        errorMessage: "",
+    });
+    const route = useRouter()
 
     const {
         register,
@@ -23,13 +33,25 @@ const Login = ({ onPressClose }: any) => {
         defaultValues: {
             email: "",
             password: "",
-            name: "",
-            confirmPassword: "",
         },
     });
+
+    const formSubmitHandler = async (data: FormInputs) => {
+        const { email, password } = data
+        const result = await signIn('credentials', {
+            email,
+            password,
+            redirect: true,
+            callbackUrl: '/posts'
+        })
+        console.log('result', result);
+
+
+    }
+
     return (
         <div className="p-4">
-            <form method="post" className="my-6 space-y-3">
+            <form method="post" className="my-6 space-y-3" onSubmit={handleSubmit(formSubmitHandler)}>
                 <div>
                     <label htmlFor="email" className="sr-only">
                         <span>Email</span>
@@ -75,7 +97,7 @@ const Login = ({ onPressClose }: any) => {
                                 required: "Password wajib diisi.",
                                 minLength: {
                                     message: "Password minimal 12 karakter.",
-                                    value: 12,
+                                    value: 8,
                                 },
                             })}
                             placeholder="Masukan password anda"
@@ -111,10 +133,31 @@ const Login = ({ onPressClose }: any) => {
                         </motion.span>
                     )}
                 </div>
+                <div className='py-4'>
+                    <button onClick={() => signIn()}>login</button>
+                    <ButtonLoginRegister onPressClose={onPressClose} isSubmitting={isSubmitting} isSubmitSuccessful={isSubmitSuccessful} />
+                </div>
             </form>
-            <ButtonLoginRegister onPressClose={onPressClose} />
         </div>
     )
+}
+
+export async function getServerSideProps(ctx: any) {
+    const token = nookies.get(ctx);
+    console.log('token', token);
+
+    if (token.access_token) {
+        return {
+            redirect: {
+                destination: "/posts",
+            },
+            props: {},
+        };
+    }
+
+    return {
+        props: {},
+    };
 }
 
 export default Login
