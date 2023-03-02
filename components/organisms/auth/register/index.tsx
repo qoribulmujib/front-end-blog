@@ -1,9 +1,9 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion"
 import { FiEyeOff, FiEye } from 'react-icons/fi'
-import ButtonMain from '@/components/atomics/button-main';
+import { IoClose } from 'react-icons/io5'
 import ButtonLoginRegister from '@/components/atomics/button-login-register';
 import axios from 'axios'
 
@@ -17,6 +17,11 @@ const Register = ({ onPressClose, onChangeTab }: any) => {
 
     const [isShow, setIsShow] = useState(false);
     const [isShowConfirm, setIsShowConfirm] = useState(false);
+    const [successLogin, setSuccessLogin] = useState(false);
+    const [isError, setIsError] = useState({
+        errorStatus: false,
+        errorMessage: "",
+    });
 
     const {
         register,
@@ -45,16 +50,86 @@ const Register = ({ onPressClose, onChangeTab }: any) => {
                         'content-type': 'application/json'
                     }
                 })
-            onChangeTab?.({ key: 2, title: "Login" })
+            if (res?.status === 200) {
+                setIsError({ ...isError, errorStatus: false });
+                setSuccessLogin(!successLogin);
+                onChangeTab?.({ key: 2, title: "Login" })
+            } else {
+                setIsError({
+                    ...isError,
+                    errorStatus: true,
+                    errorMessage: 'Something went wrong!',
+                });
+            }
 
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            console.error(error?.response?.data?.status);
+            setIsError({
+                ...isError,
+                errorStatus: true,
+                errorMessage: error?.response?.data?.status,
+            });
         }
 
     }
 
+    useEffect(() => {
+        successLogin &&
+            setTimeout(() => {
+                setSuccessLogin(!successLogin);
+            }, 5000);
+    }, [successLogin]);
+
     return (
         <div className="p-4">
+            <AnimatePresence>
+                {isError.errorStatus && (
+                    <motion.div
+                        key={`error`}
+                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        layout
+                        className="relative mt-4 text-base bg-red-100 border border-red-300 rounded-md text-mako-500"
+                    >
+                        <p className="py-4 px-1.5 text-xs">
+                            <span className="">{isError.errorMessage}</span>
+                        </p>
+                        <div
+                            onClick={() =>
+                                setIsError({ ...isError, errorStatus: false })
+                            }
+                            className="absolute top-0 right-0 p-1 rounded-full"
+                        >
+                            <div className="flex items-center justify-center w-3 h-3 bg-red-400 rounded-full fill-current">
+                                <IoClose className="w-2 h-2 text-white fill-current" />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+                {successLogin && (
+                    <motion.div
+                        key={`success`}
+                        animate={{ opacity: 1 }}
+                        initial={{ opacity: 0 }}
+                        exit={{ opacity: 0 }}
+                        layout
+                        className="relative mt-4 text-base border rounded-md text-mako-500 bg-slate-100 border-slate-300"
+                    >
+                        <p className="py-4 px-1.5 text-xs">
+                            <span className="">Berhasil login</span>
+                        </p>
+                        <div
+                            onClick={() => setSuccessLogin(!successLogin)}
+                            className="absolute top-0 right-0 p-1 rounded-full"
+                        >
+                            <div className="flex items-center justify-center w-3 h-3 rounded-full fill-current bg-slate-400">
+                                <IoClose className="w-2 h-2 text-white fill-current" />
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             <form method="post" className="mt-6 space-y-3" onSubmit={handleSubmit(formSubmitHandler)} autoComplete="off">
                 <div>
                     <label htmlFor="name" className="sr-only">
@@ -214,7 +289,7 @@ const Register = ({ onPressClose, onChangeTab }: any) => {
                     <ButtonLoginRegister onPressClose={onPressClose} isSubmitting={isSubmitting} isSubmitSuccessful={isSubmitSuccessful} />
                 </div>
             </form>
-        </div>
+        </div >
     )
 }
 
